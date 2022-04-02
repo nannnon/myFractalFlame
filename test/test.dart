@@ -41,28 +41,19 @@ void main() {
       expect(p2.counter, c);
     }
     {
-      const int x = 2;
-      const int y = 5;
-      const double g = 128;
-      const int c = 7;
-
-      Pixel p = pixels.getPixel(x, y);
-      p.color.g = g;
-      p.counter = c;
-      pixels.setPixel(x, y, p);
-
-      Pixel p2 = pixels.getPixel(x, y);
-      expect(p2.color.r, 0);
-      expect(p2.color.g, g);
-      expect(p2.color.b, 0);
-      expect(p2.counter, c);
-    }
-    {
       Pixel p = pixels.getPixel(0, 0);
       expect(p.color.r, 0);
       expect(p.color.g, 0);
       expect(p.color.b, 0);
       expect(p.counter, 0);
+    }
+    {
+      const int x = 3;
+      const int y = 3;
+      const double r = 218;
+      Pixel p = pixels.getPixel(x, y);
+      p.color.r = r;
+      expect(pixels.getPixel(x, y).color.r != r, true);
     }
   });
 

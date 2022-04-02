@@ -6,6 +6,10 @@ class Color {
   double b;
 
   Color(this.r, this.g, this.b);
+  Color.init(Color color)
+      : r = color.r,
+        g = color.g,
+        b = color.b;
 }
 
 Point mapByCoefs(double x, double y, List<double> coefs) {

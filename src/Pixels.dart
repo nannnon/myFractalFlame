@@ -7,6 +7,10 @@ class Pixel {
   Pixel()
       : color = Color(0, 0, 0),
         counter = 0;
+
+  Pixel.init(Pixel p)
+      : color = Color.init(p.color),
+        counter = p.counter;
 }
 
 class Pixels {
@@ -23,7 +27,7 @@ class Pixels {
   }
 
   Pixel getPixel(int x, int y) {
-    return _data[_xy2index(x, y)];
+    return Pixel.init(_data[_xy2index(x, y)]);
   }
 
   void setPixel(int x, int y, Pixel pixel) {
