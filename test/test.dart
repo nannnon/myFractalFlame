@@ -4,30 +4,11 @@ import '../src/MyFractalFlame.dart';
 import '../src/Pixels.dart';
 
 void main() {
-  test('Vector', () {
-    const double x = 3;
-    const double y = 1;
-    Vector v = Vector(x, y);
-    expect(v.x, x);
-    expect(v.y, y);
-
-    const double x2 = 10;
-    const double y2 = 101;
-    Vector v2 = v + Vector(x2, y2);
-    expect(v2.x, v.x + x2);
-    expect(v2.y, v.y + y2);
-
-    const double value = 3;
-    Vector v3 = v2 * value;
-    expect(v3.x, v2.x * value);
-    expect(v3.y, v2.y * value);
-  });
-
   test('mapByCoefs', () {
     double x = 15, y = 800;
     double a = 1.5, b = 1.2, c = -0.1;
     double d = 0.8, e = -0.5, f = -1;
-    Vector result = mapByCoefs(x, y, [a, b, c, d, e, f]);
+    var result = mapByCoefs(x, y, [a, b, c, d, e, f]);
     expect(result.x, a * x + b * y + c);
     expect(result.y, d * x + e * y + f);
   });

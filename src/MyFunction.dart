@@ -1,3 +1,4 @@
+import 'dart:math';
 import 'Common.dart';
 import 'Variation.dart';
 
@@ -37,18 +38,18 @@ class MyFunction {
     }
   }
 
-  Vector map(double x, double y) {
+  Point map(double x, double y) {
     // アフィン変換
-    Vector point = mapByCoefs(x, y, _coefs);
+    Point point = mapByCoefs(x, y, _coefs);
 
     // 非線形写像
-    Vector afterVar = Vector(0, 0);
+    Point afterVar = Point(0, 0);
     for (Variation variation in _variations) {
       afterVar += variation.map(point.x, point.y) * variation.weight;
     }
 
     // Post transformation
-    Vector afterPT = mapByCoefs(afterVar.x, afterVar.y, _postTransformCoefs);
+    Point afterPT = mapByCoefs(afterVar.x, afterVar.y, _postTransformCoefs);
 
     return afterPT;
   }

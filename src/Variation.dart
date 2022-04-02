@@ -1,5 +1,4 @@
 import 'dart:math';
-import 'Common.dart';
 
 class Variation {
   final int _variationType;
@@ -26,7 +25,7 @@ class Variation {
     }
   }
 
-  Vector map(double x, double y) {
+  Point map(double x, double y) {
     double newx = 0, newy = 0;
 
     switch (_variationType) {
@@ -45,6 +44,6 @@ class Variation {
         break;
     }
 
-    return Vector(newx, newy);
+    return Point(newx, newy);
   }
 }

@@ -88,10 +88,10 @@ class MyFractalFlame {
         }
 
         // 写像
-        Vector point = _functions[fi].map(x, y);
+        Point point = _functions[fi].map(x, y);
 
         // Final transformation
-        Vector afterFT = mapByCoefs(point.x, point.y, _finalTCoefs);
+        Point afterFT = mapByCoefs(point.x, point.y, _finalTCoefs);
 
         x = afterFT.x;
         y = afterFT.y;
