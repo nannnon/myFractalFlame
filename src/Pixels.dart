@@ -15,7 +15,7 @@ class Pixels {
   final List<Pixel> _data;
 
   Pixels(this.width, this.height)
-      : _data = List<Pixel>.filled(width * height, Pixel());
+      : _data = List<Pixel>.generate(width * height, (index) => Pixel());
 
   int _xy2index(int x, int y) {
     int index = y * width + x;
