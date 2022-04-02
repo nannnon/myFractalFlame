@@ -1,8 +1,8 @@
+import 'dart:math';
 import 'Common.dart';
-import 'Variations.dart';
 
 class Variation {
-  final VariationType _varitionType;
+  final int _variationType;
   double _weight;
   final List<double> _parameters;
 
@@ -14,7 +14,10 @@ class Variation {
     _weight = w;
   }
 
-  Variation(this._varitionType, this._weight, this._parameters) {
+  Variation(this._variationType, this._weight, this._parameters) {
+    if (_variationType < 0) {
+      throw 'Invalid variation type';
+    }
     if (_weight <= 0) {
       throw 'weight must be larger than 0';
     }
@@ -24,15 +27,24 @@ class Variation {
   }
 
   Vector map(double x, double y) {
-    switch (_varitionType) {
-      case VariationType.Linear:
-        return linear(x, y);
-      case VariationType.Sinusoidal:
-        return sinusoidal(x, y);
-      case VariationType.Spherical:
-        return spherical(x, y);
+    double newx = 0, newy = 0;
+
+    switch (_variationType) {
+      case 0: // Linear:
+        newx = x;
+        newy = y;
+        break;
+      case 1: // Sinusoidal:
+        newx = sin(x);
+        newy = sin(y);
+        break;
+      case 2: // Spherical:
+        double rPow = x * x + y * y;
+        newx = x / rPow;
+        newy = y / rPow;
+        break;
     }
 
-    return null;
+    return Vector(newx, newy);
   }
 }

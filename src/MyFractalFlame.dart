@@ -4,7 +4,6 @@ import 'package:image/image.dart' as img;
 import 'Common.dart';
 import 'MyFunction.dart';
 import 'Variation.dart';
-import 'Variations.dart';
 import 'Pixels.dart';
 
 class MyFractalFlame {
@@ -27,30 +26,14 @@ class MyFractalFlame {
     _random = Random(_seed);
 
     _functions = [];
-    _functions.add(MyFunction(
-        0.5,
-        [1, 0, 0.1, 0, 1, 0.1],
-        [Variation(VariationType.Sinusoidal, 1, [])],
-        [1.5, 0, 0, 0, 1.5, 2],
-        Color(255, 0, 0)));
-    _functions.add(MyFunction(
-        0.5,
-        [1, 0.1, 0, 0.1, 1, 0],
-        [Variation(VariationType.Sinusoidal, 1, [])],
-        [0.5, 0, 1, 0, 0.5, 2],
-        Color(0, 255, 0)));
-    _functions.add(MyFunction(
-        0.5,
-        [2, 0, 0.3, 0, -1, 0.3],
-        [Variation(VariationType.Sinusoidal, 1, [])],
-        [1.5, 0, 0, 0, 1.5, 2],
-        Color(255, 0, 0)));
-    _functions.add(MyFunction(
-        0.5,
-        [1, 2, 0.3, -5, -1, 0.3],
-        [Variation(VariationType.Spherical, 1, [])],
-        [1.5, 0, 0, 0, 1.5, 2],
-        Color(255, 0, 255)));
+    _functions.add(MyFunction(0.5, [1, 0, 0.1, 0, 1, 0.1],
+        [Variation(1, 1, [])], [1.5, 0, 0, 0, 1.5, 2], Color(255, 0, 0)));
+    _functions.add(MyFunction(0.5, [1, 0.1, 0, 0.1, 1, 0],
+        [Variation(1, 1, [])], [0.5, 0, 1, 0, 0.5, 2], Color(0, 255, 0)));
+    _functions.add(MyFunction(0.5, [2, 0, 0.3, 0, -1, 0.3],
+        [Variation(1, 1, [])], [1.5, 0, 0, 0, 1.5, 2], Color(255, 0, 0)));
+    _functions.add(MyFunction(0.5, [1, 2, 0.3, -5, -1, 0.3],
+        [Variation(2, 1, [])], [1.5, 0, 0, 0, 1.5, 2], Color(255, 0, 255)));
 
     _finalTCoefs = [1, 0, 0, 0, 1, 0];
 
