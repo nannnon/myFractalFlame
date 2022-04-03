@@ -1,6 +1,7 @@
 import 'dart:math';
 
 class Variation {
+  static const int variationTypesNum = 49;
   static const int _seed = 42;
   static final Random _random = Random(_seed);
 

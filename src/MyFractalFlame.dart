@@ -26,16 +26,55 @@ class MyFractalFlame {
     _random = Random(_seed);
 
     _functions = [];
-    _functions.add(MyFunction(0.5, [1, 0, 0.1, 0, 1, 0.1],
-        [Variation(1, 1, [])], [1.5, 0, 0, 0, 1.5, 2], Color(255, 0, 0)));
-    _functions.add(MyFunction(0.5, [1, 0.1, 0, 0.1, 1, 0],
-        [Variation(1, 1, [])], [0.5, 0, 1, 0, 0.5, 2], Color(0, 255, 0)));
-    _functions.add(MyFunction(0.5, [2, 0, 0.3, 0, -1, 0.3],
-        [Variation(1, 1, [])], [1.5, 0, 0, 0, 1.5, 2], Color(255, 0, 0)));
-    _functions.add(MyFunction(0.5, [1, 2, 0.3, -5, -1, 0.3],
-        [Variation(2, 1, [])], [1.5, 0, 0, 0, 1.5, 2], Color(255, 0, 255)));
+    int functionsNum = _random.nextInt(5) + 1;
+    const double maxCoef = 1.5;
+    for (int i = 0; i < functionsNum; ++i) {
+      double p = _getRandom(0.01, 1);
 
-    _finalTCoefs = [1, 0, 0, 0, 1, 0];
+      double ca = _getRandom(-maxCoef, maxCoef);
+      double cb = _getRandom(-maxCoef, maxCoef);
+      double cc = _getRandom(-maxCoef, maxCoef);
+      double cd = _getRandom(-maxCoef, maxCoef);
+      double ce = _getRandom(-maxCoef, maxCoef);
+      double cf = _getRandom(-maxCoef, maxCoef);
+
+      List<Variation> vars = [];
+      int varsNum = _random.nextInt(5) + 1;
+      for (int j = 0; j < varsNum; ++j) {
+        int type = _random.nextInt(Variation.variationTypesNum);
+        double w = _getRandom(0.01, 1);
+
+        const double maxParam = 2;
+        double p0 = _getRandom(-maxParam, maxParam);
+        double p1 = _getRandom(-maxParam, maxParam);
+        double p2 = _getRandom(-maxParam, maxParam);
+        double p3 = _getRandom(-maxParam, maxParam);
+
+        vars.add(Variation(type, w, [p0, p1, p2, p3]));
+      }
+
+      double pta = _getRandom(-maxCoef, maxCoef);
+      double ptb = _getRandom(-maxCoef, maxCoef);
+      double ptc = _getRandom(-maxCoef, maxCoef);
+      double ptd = _getRandom(-maxCoef, maxCoef);
+      double pte = _getRandom(-maxCoef, maxCoef);
+      double ptf = _getRandom(-maxCoef, maxCoef);
+
+      double r = _getRandom(0, 255);
+      double g = _getRandom(0, 255);
+      double b = _getRandom(0, 255);
+
+      _functions.add(MyFunction(p, [ca, cb, cc, cd, ce, cf], vars,
+          [pta, ptb, ptc, ptd, pte, ptf], Color(r, g, b)));
+    }
+
+    double fa = _getRandom(-maxCoef, maxCoef);
+    double fb = _getRandom(-maxCoef, maxCoef);
+    double fc = _getRandom(-maxCoef, maxCoef);
+    double fd = _getRandom(-maxCoef, maxCoef);
+    double fe = _getRandom(-maxCoef, maxCoef);
+    double ff = _getRandom(-maxCoef, maxCoef);
+    _finalTCoefs = [fa, fb, fc, fd, fe, ff];
 
     _pixels = Pixels(_width, _height);
   }
@@ -96,6 +135,11 @@ class MyFractalFlame {
         x = afterFT.x;
         y = afterFT.y;
 
+        // x, yが大きい値になったら中断
+        if (x.isNaN || y.isNaN || x.abs() >= 10e100 || y.abs() >= 10e100) {
+          break;
+        }
+
         // プロットする
         if (step >= 20) {
           // 画像上の座標に変換
@@ -126,6 +170,10 @@ class MyFractalFlame {
         int count = _pixels.getPixel(x, y).counter;
         maxCount = max(maxCount, count);
       }
+    }
+
+    if (maxCount <= 1) {
+      return;
     }
 
     for (int x = 0; x < _width; ++x) {
