@@ -45,7 +45,7 @@ class MyFunction {
     // 非線形写像
     Point afterVar = Point(0, 0);
     for (Variation variation in _variations) {
-      afterVar += variation.map(point.x, point.y) * variation.weight;
+      afterVar += variation.map(point.x, point.y, _coefs) * variation.weight;
     }
 
     // Post transformation
