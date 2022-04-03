@@ -265,7 +265,7 @@ class Variation {
         double p2 = _ps[1];
         double psi = _random.nextDouble();
         int p3 = (p1.abs() * psi).truncate();
-        int lambda = _random.nextInt(2) == 0 ? -1 : 1;
+        int lambda = _random.nextBool() ? -1 : 1;
         double phi = atan2(x, y);
         double t = (lambda * phi + 2 * pi * p3) / p1;
         double r = sqrt(x * x + y * y);
