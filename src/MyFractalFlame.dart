@@ -9,7 +9,6 @@ import 'Pixels.dart';
 class MyFractalFlame {
   static const int _seed = 42;
   static const int _samplesNum = 100;
-  static const double _minInitialCoord = -2;
   static const double _maxInitialCoord = 2;
   static const int _stepsNum = 5000;
   static const int _width = 1024;
@@ -31,12 +30,13 @@ class MyFractalFlame {
     for (int i = 0; i < functionsNum; ++i) {
       double p = _getRandom(0.01, 1);
 
-      double ca = _getRandom(-maxCoef, maxCoef);
-      double cb = _getRandom(-maxCoef, maxCoef);
-      double cc = _getRandom(-maxCoef, maxCoef);
-      double cd = _getRandom(-maxCoef, maxCoef);
-      double ce = _getRandom(-maxCoef, maxCoef);
-      double cf = _getRandom(-maxCoef, maxCoef);
+      List<double> coefs = []
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef));
 
       List<Variation> vars = [];
       int varsNum = _random.nextInt(5) + 1;
@@ -45,36 +45,37 @@ class MyFractalFlame {
         double w = _getRandom(0.01, 1);
 
         const double maxParam = 2;
-        double p0 = _getRandom(-maxParam, maxParam);
-        double p1 = _getRandom(-maxParam, maxParam);
-        double p2 = _getRandom(-maxParam, maxParam);
-        double p3 = _getRandom(-maxParam, maxParam);
+        List<double> ps = []
+          ..add(_getRandom(-maxParam, maxParam))
+          ..add(_getRandom(-maxParam, maxParam))
+          ..add(_getRandom(-maxParam, maxParam))
+          ..add(_getRandom(-maxParam, maxParam));
 
-        vars.add(Variation(type, w, [p0, p1, p2, p3]));
+        vars.add(Variation(type, w, ps));
       }
 
-      double pta = _getRandom(-maxCoef, maxCoef);
-      double ptb = _getRandom(-maxCoef, maxCoef);
-      double ptc = _getRandom(-maxCoef, maxCoef);
-      double ptd = _getRandom(-maxCoef, maxCoef);
-      double pte = _getRandom(-maxCoef, maxCoef);
-      double ptf = _getRandom(-maxCoef, maxCoef);
+      List<double> ptcs = []
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef))
+        ..add(_getRandom(-maxCoef, maxCoef));
 
       double r = _getRandom(0, 255);
       double g = _getRandom(0, 255);
       double b = _getRandom(0, 255);
 
-      _functions.add(MyFunction(p, [ca, cb, cc, cd, ce, cf], vars,
-          [pta, ptb, ptc, ptd, pte, ptf], Color(r, g, b)));
+      _functions.add(MyFunction(p, coefs, vars, ptcs, Color(r, g, b)));
     }
 
-    double fa = _getRandom(-maxCoef, maxCoef);
-    double fb = _getRandom(-maxCoef, maxCoef);
-    double fc = _getRandom(-maxCoef, maxCoef);
-    double fd = _getRandom(-maxCoef, maxCoef);
-    double fe = _getRandom(-maxCoef, maxCoef);
-    double ff = _getRandom(-maxCoef, maxCoef);
-    _finalTCoefs = [fa, fb, fc, fd, fe, ff];
+    _finalTCoefs = []
+      ..add(_getRandom(-maxCoef, maxCoef))
+      ..add(_getRandom(-maxCoef, maxCoef))
+      ..add(_getRandom(-maxCoef, maxCoef))
+      ..add(_getRandom(-maxCoef, maxCoef))
+      ..add(_getRandom(-maxCoef, maxCoef))
+      ..add(_getRandom(-maxCoef, maxCoef));
 
     _pixels = Pixels(_width, _height);
   }
@@ -104,14 +105,14 @@ class MyFractalFlame {
     return value;
   }
 
-  void iterate() {
+  void _iterate() {
     List<double> normalizedPs = _normalizePs();
 
     for (int sample = 0; sample < _samplesNum; ++sample) {
       print('sample:${sample}/${_samplesNum - 1}');
       // 初期位置
-      double x = _getRandom(_minInitialCoord, _maxInitialCoord);
-      double y = _getRandom(_minInitialCoord, _maxInitialCoord);
+      double x = _getRandom(_maxInitialCoord, _maxInitialCoord);
+      double y = _getRandom(_maxInitialCoord, _maxInitialCoord);
 
       for (int step = 0; step < _stepsNum; ++step) {
         // Functionを選択
@@ -163,7 +164,7 @@ class MyFractalFlame {
     }
   }
 
-  void reduce() {
+  void _logGamma() {
     int maxCount = 0;
     for (int x = 0; x < _width; ++x) {
       for (int y = 0; y < _height; ++y) {
@@ -195,7 +196,7 @@ class MyFractalFlame {
     }
   }
 
-  void encode(String outputImageFileName) {
+  void _writeImage(String outputImageFileName) {
     final image = img.Image(_width, _height);
     img.fill(image, img.getColor(0, 0, 0));
 
@@ -213,8 +214,8 @@ class MyFractalFlame {
   }
 
   void generate(String outputImageFileName) {
-    iterate();
-    reduce();
-    encode(outputImageFileName);
+    _iterate();
+    _logGamma();
+    _writeImage(outputImageFileName);
   }
 }
