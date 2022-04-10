@@ -60,7 +60,7 @@ class Variation {
       case 4: // Horseshoe
         double r = sqrt(x * x + y * y);
         newx = (x - y) * (x + y) / r;
-        newy = 2 * x * y;
+        newy = 2 * x * y / r;
         break;
       case 5: // Polar
         newx = atan2(y, x) / pi;
