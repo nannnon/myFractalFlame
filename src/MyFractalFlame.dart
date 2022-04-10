@@ -7,12 +7,11 @@ import 'Variation.dart';
 import 'Pixels.dart';
 
 class MyFractalFlame {
-  static const int _seed = 42;
-  static const int _samplesNum = 100;
-  static const double _maxInitialCoord = 2;
-  static const int _stepsNum = 5000;
-  static const int _width = 1024;
-  static const int _height = 768;
+  static const int _samplesNum = 20000;
+  static const double _maxInitialCoord = 1.77;
+  static const int _stepsNum = 1000;
+  static const int _width = 1920;
+  static const int _height = 1080;
   static const double _scale = 100;
   static const double _gamma = 1.5;
 
@@ -22,10 +21,10 @@ class MyFractalFlame {
   Pixels _pixels;
 
   MyFractalFlame() {
-    _random = Random(_seed);
+    _random = Random();
 
     _functions = [];
-    int functionsNum = _random.nextInt(5) + 1;
+    int functionsNum = _random.nextInt(5) + 5;
     const double maxCoef = 1.5;
     for (int i = 0; i < functionsNum; ++i) {
       double p = _getRandom(0.01, 1);
