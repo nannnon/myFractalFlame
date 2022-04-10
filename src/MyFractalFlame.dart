@@ -108,7 +108,9 @@ class MyFractalFlame {
     List<double> normalizedPs = _normalizePs();
 
     for (int sample = 0; sample < _samplesNum; ++sample) {
-      print('sample:${sample}/${_samplesNum - 1}');
+      if (sample % 1000 == 0) {
+        print('sample:${sample}/${_samplesNum - 1}');
+      }
       // 初期位置
       double x = _getRandom(_maxInitialCoord, _maxInitialCoord);
       double y = _getRandom(_maxInitialCoord, _maxInitialCoord);
