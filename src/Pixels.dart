@@ -31,7 +31,9 @@ class Pixels {
   }
 
   void setPixel(int x, int y, Pixel pixel) {
-    _data[_xy2index(x, y)] = pixel;
+    int i = _xy2index(x, y);
+    _data[i].color = pixel.color;
+    _data[i].counter = pixel.counter;
   }
 
   bool inRange(int x, int y) {
