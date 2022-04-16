@@ -5,7 +5,7 @@ class Pixel {
   int counter;
 
   Pixel()
-      : color = Color(0, 0, 0),
+      : color = Color(255, 255, 255),
         counter = 0;
 
   Pixel.init(Pixel p)
