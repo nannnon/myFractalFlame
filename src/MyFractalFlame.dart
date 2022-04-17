@@ -100,6 +100,9 @@ class MyFractalFlame {
   }
 
   double _getRandom(double min, double max) {
+    if (min >= max) {
+      throw 'Invalid value';
+    }
     double value = (max - min) * _random.nextDouble() + min;
     return value;
   }
@@ -112,8 +115,8 @@ class MyFractalFlame {
         print('sample:${sample}/${_samplesNum - 1}');
       }
       // 初期位置
-      double x = _getRandom(_maxInitialCoord, _maxInitialCoord);
-      double y = _getRandom(_maxInitialCoord, _maxInitialCoord);
+      double x = _getRandom(-_maxInitialCoord, _maxInitialCoord);
+      double y = _getRandom(-_maxInitialCoord, _maxInitialCoord);
 
       for (int step = 0; step < _stepsNum; ++step) {
         // Functionを選択
